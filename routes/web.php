@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('registrar', [ProfileController::class, 'store'])->name('user.store');
+
+    Route::get('importar-dados', [\App\Http\Controllers\ImportacaoController::class, 'getData'])->name('dados');
 });
 
 require __DIR__.'/auth.php';
