@@ -1,15 +1,29 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <div class="row align-items-center">
+            <div class="col-6">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Dashboard') }}
+                </h2>
+            </div>
+            <div class="col-6 text-end">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    @if($isAdmin)
+                        <a href="{{route('user.create')}}"
+                           type="button" class="btn btn-outline-primary btn-lg">
+                            Cadastrar Usuário
+                        </a>
+                    @endif
+                </h2>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    Você está logado na Gevac.
                 </div>
             </div>
         </div>
