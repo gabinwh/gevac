@@ -1,0 +1,38 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #B1DEC6;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topo {
+    background-image: url('/app/View/home/img/fundo.png');
+    background-size: cover; /* Ajusta o tamanho da imagem para cobrir completamente a área */
+    background-position: center; /* Centraliza a imagem dentro do contêiner */
+    height: 300px;
+}
+
+.text {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-top: 10%;
+}
+
+.corpo {
+    display: flex;
+    padding-top: 50px;
+    margin: 50px;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
