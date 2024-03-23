@@ -1,0 +1,40 @@
+html, body {
+    height: 100%;
+    margin: 20px;
+    background-color: #B1DEC6;
+}
+
+.menu {
+    background-color: #D9D9D9;
+    height: 100vh;
+    border-radius: 50px;
+}
+
+.corpo {
+    height: 100vh;
+}
+
+.topo, .baixo {
+    background-color: #FFFFFF;
+}
+
+.topo {
+    height: 30vh;
+}
+
+.baixo {
+    height: 70vh;
+}
+
+.title {
+    font-family: 'Merriweather';
+    font-size: 50px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.buttons{
+    display: grid;
+    padding: 10px;
+    padding-top: 100px;
+}
