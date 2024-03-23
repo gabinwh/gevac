@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #B1DEC6;
+  }
+  
+  .login {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+.card {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+    border: 0;
+    border-radius: 0;
+}
+
+.card-info {
+    background-color: #65A381;
+}
