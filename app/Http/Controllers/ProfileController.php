@@ -64,7 +64,7 @@ class ProfileController extends Controller
         $isAdmin = Auth::user()->is_admin;
         return view('dashboard', compact('isAdmin'));
     }
-
+    
     public function create(): View
     {
         $userIsAdmin = Auth::user()->is_admin;

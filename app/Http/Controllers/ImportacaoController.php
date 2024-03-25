@@ -2,33 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cidadao;
-use App\Models\Dose;
-use App\Models\Endereco;
-use App\Models\Estabelecimento;
-use App\Models\Vacina;
 use Carbon\Carbon;
+use App\Models\Dose;
+use App\Models\Vacina;
+use App\Models\Cidadao;
+use App\Models\Endereco;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\Estabelecimento;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class ImportacaoController extends Controller
 {
+    public function importacao(): View
+    {
+        $isAdmin = Auth::user()->is_admin;
+        $totalCidadao = Cidadao::all()->count();
+        $totalDose = Dose::all()->count();
+        $totalEstabelecimento = Estabelecimento::all()->count();
+        $totalVacina = Vacina::all()->count();
+        return view('importacao', compact('isAdmin', 'totalCidadao', 'totalDose', 'totalEstabelecimento', 'totalVacina'));
+    }
+
+
     public function getData()
     {
-//        Http::dd()->withBasicAuth('imunizacao_public', 'qlto5t&7r_@+#Tlstigi')
-//            ->get('https://imunizacao-es.saude.gov.br/desc-imunizacao/_search');
+        //        Http::dd()->withBasicAuth('imunizacao_public', 'qlto5t&7r_@+#Tlstigi')
+        //            ->get('https://imunizacao-es.saude.gov.br/desc-imunizacao/_search');
 
         $url = 'https://imunizacao-es.saude.gov.br/desc-imunizacao/_search?q=estabelecimento_uf:SE'; //Utilizar o elastic search para fazer as query direto na URL
-        $response = Http::withBasicAuth('imunizacao_public', 'qlto5t&7r_@+#Tlstigi')->get($url);
+        $response = Http::withOptions(['verify' => false])
+            ->withBasicAuth('imunizacao_public', 'qlto5t&7r_@+#Tlstigi')
+            ->get($url);
 
         if ($response->successful()) {
             $data = $response->json();
 
-//            $resultados_filtrados = array_filter($data['hits']['hits'], function($documento) {
-//                return $documento['_source']['estabelecimento_uf'] === 'PE';
-//            });
+            //            $resultados_filtrados = array_filter($data['hits']['hits'], function($documento) {
+            //                return $documento['_source']['estabelecimento_uf'] === 'PE';
+            //            });
 
-            foreach ($data['hits']['hits'] as $dose){
+            foreach ($data['hits']['hits'] as $dose) {
 
                 $endereco = Endereco::firstOrCreate([
                     'uf' => $dose['_source']['paciente_endereco_uf'],
@@ -78,9 +94,12 @@ class ImportacaoController extends Controller
             }
 
 
-            return response()->json(['success' => 'Sucesso ao importar os dados.']);
+            session()->flash('success', 'Dados importados com sucesso.');
         } else {
-            return response()->json(['error' => 'Erro ao acessar os dados.']);
+            session()->flash('error', 'Erro ao acessar os dados.');
         }
+
+        return redirect()->route('importacao');
     }
+
 }
